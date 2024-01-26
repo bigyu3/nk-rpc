@@ -9,18 +9,18 @@ import lombok.Data;
  * @date 2024/1/26 10:01
  */
 @Data
-public class RpcHttpTimeOut {
+public class RpcHttpTimeout {
 
     private String domain;
     private Long connectTimeout;
     private Long readTimeout;
     private Long writeTimeout;
 
-    public RpcHttpTimeOut() {
+    public RpcHttpTimeout() {
 
     }
 
-    public RpcHttpTimeOut(String domain, Long connectTimeout, Long readTimeout, Long writeTimeout) {
+    public RpcHttpTimeout(String domain, Long connectTimeout, Long readTimeout, Long writeTimeout) {
         this.domain = domain;
         this.connectTimeout = connectTimeout;
         this.readTimeout = readTimeout;

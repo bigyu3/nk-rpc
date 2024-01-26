@@ -1,7 +1,7 @@
 package com.tianyu.nk.properties;
 
 import com.tianyu.nk.support.ApplicationContextUtils;
-import com.tianyu.nk.support.RpcHttpTimeOut;
+import com.tianyu.nk.support.RpcHttpTimeout;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.PropertySource;
@@ -21,7 +21,7 @@ public class RpcApiProperties {
     public static final String CONFIG_PREFIX = RpcProperties.CONFIG_PREFIX + ".api.";
     private static final List<String> API_PROPERTY_LIST = new ArrayList();
     private static volatile RpcApiProperties instance = null;
-    private Map<String, RpcHttpTimeOut> httpTimeOutMap = new HashMap<>();
+    private Map<String, RpcHttpTimeout> httpTimeOutMap = new HashMap<>();
 
     static {
         API_PROPERTY_LIST.add(RpcProperties.DOMAIN_PROPERTY);
@@ -45,7 +45,7 @@ public class RpcApiProperties {
         return instance;
     }
 
-    public Map<String, RpcHttpTimeOut> gethttpTimeOutMap() {
+    public Map<String, RpcHttpTimeout> gethttpTimeOutMap() {
         return httpTimeOutMap;
     }
 
@@ -83,17 +83,17 @@ public class RpcApiProperties {
             }
 
             String httpTimeoutKey = arr[0] + "#" + arr[1];
-            RpcHttpTimeOut httpTimeout = getHttpTimeout(httpTimeoutKey);
+            RpcHttpTimeout httpTimeout = getHttpTimeout(httpTimeoutKey);
             String value = standardServletEnvironment.getProperty(entry.getKey());
 
             setHttpTimeout(httpTimeout, propertyName, value);
         }
     }
 
-    private RpcHttpTimeOut getHttpTimeout(String key) {
-        RpcHttpTimeOut httpTimeout;
+    private RpcHttpTimeout getHttpTimeout(String key) {
+        RpcHttpTimeout httpTimeout;
         if (!httpTimeOutMap.containsKey(key)) {
-            httpTimeout = new RpcHttpTimeOut();
+            httpTimeout = new RpcHttpTimeout();
             httpTimeOutMap.put(key, httpTimeout);
         } else {
             httpTimeout = httpTimeOutMap.get(key);
@@ -101,7 +101,7 @@ public class RpcApiProperties {
         return httpTimeout;
     }
 
-    private void setHttpTimeout(RpcHttpTimeOut httpTimeout, String propertyName, String value) {
+    private void setHttpTimeout(RpcHttpTimeout httpTimeout, String propertyName, String value) {
         if (RpcProperties.DOMAIN_PROPERTY.equals(propertyName)) {
             httpTimeout.setDomain(value);
         } else if (RpcProperties.CONNECT_TIMEOUT_PROPERTY.equals(propertyName)) {
